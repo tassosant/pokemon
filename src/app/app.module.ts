@@ -9,20 +9,22 @@ import { PokemonCataloguePage } from './pages/pokemon-catalogue/pokemon-catalogu
 import { TrainerPage } from './pages/trainer/trainer.page';
 import { LandingPage } from './pages/landing/landing.page';
 import { LoginFormComponent } from './components/login-form/login-form.component';
+import { LoginService } from './services/login.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [ //Components
     AppComponent,
-    
+    LoginFormComponent,
     PokemonCataloguePage,
     TrainerPage,
     LandingPage,
-    LoginFormComponent
+    
   ],
   imports: [ //modules
     BrowserModule,
     AppRoutingModule,
-    LoginFormComponent,
+    FormsModule,
     HttpClientModule
   ],
   providers: [],
