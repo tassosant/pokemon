@@ -109,15 +109,21 @@ export class PokemonCatalogueService {
   //   // })
   // }
 
-  private extractId(pokemonsUrl: string): number{
-    let pattern = new RegExp("/[0-9]+/",'g');
-    let result = pattern.exec(pokemonsUrl);
-    let id =0;
-    if(result != null || result !=undefined){
-      console.log('id of pokemon',result);
-      let id = parseInt(result.toString().replace(/,/g,""));
+  // private extractId(pokemonsUrl: string): number{
+  //   let pattern = new RegExp("/[0-9]+/",'g');
+  //   let result = pattern.exec(pokemonsUrl);
+  //   let id =0;
+  //   if(result != null || result !=undefined){
+  //     console.log('id of pokemon',result);
+  //     let id = parseInt(result.toString().replace(/,/g,""));
       
-    }
-    return id;
+  //   }
+  //   return id;
+  // }
+
+  public findPokemonByName(name:string): Pokemon |undefined{
+    return this._pokemons.find((pokemon: Pokemon)=>pokemon.name===name);
   }
+
+  
 }

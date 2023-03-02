@@ -1,6 +1,10 @@
 <ul>
-    <li *ngFor="let pokemon of pokemons">
-        <span>Pokedex number: {{pokemon.pokemonId}} Pokemon name: {{pokemon.name}} </span>
-    </li>
+    <!-- <li *ngFor="let pokemon of pokemons"> -->
+        <app-pokemon-list-item 
+        *ngFor="let pokemon of pokemons"
+        [pokemon] = "pokemon"
+        ></app-pokemon-list-item>
+        <!-- <span>Pokedex number: {{pokemon.pokemonId}} Pokemon name: {{pokemon.name}} </span> -->
+    <!-- </li> -->
     
 </ul>

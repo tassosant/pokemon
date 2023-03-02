@@ -14,6 +14,9 @@ import { FormsModule } from '@angular/forms';
 
 
 import { PokemonListComponent } from './components/pokemon-list/pokemon-list.component';
+import { PokemonListItemComponent } from './components/pokemon-list-item/pokemon-list-item.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { PokemonCatchButtonComponent } from './components/pokemon-catch-button/pokemon-catch-button.component';
 
 @NgModule({
   declarations: [ //Components
@@ -25,6 +28,9 @@ import { PokemonListComponent } from './components/pokemon-list/pokemon-list.com
     
     
     PokemonListComponent,
+              PokemonListItemComponent,
+              NavbarComponent,
+              PokemonCatchButtonComponent,
     
   ],
   imports: [ //modules

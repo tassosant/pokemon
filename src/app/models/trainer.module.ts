@@ -1,6 +1,8 @@
+import { Pokemon } from "./pokemon.module";
+
 export interface Trainer{
-    id: string;
+    id: number;
     username: string;
-    pokemons: string[];
+    pokemon: Pokemon[];
 }
 

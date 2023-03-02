@@ -1,0 +1,9 @@
+<li *ngIf="pokemon" class="relative">
+    <section>
+        <app-pokemon-catch-button [pokemonName]="pokemon.name"></app-pokemon-catch-button>
+        <img [src]="pokemon.image" [alt]="pokemon.name" class="block w-60"/> 
+    </section>
+    <section>
+        <span class="text-2xl">Pokedex number: {{pokemon.pokemonId}} Pokemon name: {{pokemon.name}} </span>
+    </section>
+</li>
