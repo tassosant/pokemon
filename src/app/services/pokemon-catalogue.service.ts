@@ -4,6 +4,7 @@ import { finalize } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Pokemon } from '../models/pokemon.module';
 import { PokemonLimitedResponse } from '../models/pokemonLimitedResponse.module';
+import { PokemonMapperService } from './pokemon-mapper.service';
 
 //this will change to pokemon, I'll leave it like this for now to handle the rest
 const {apiPokemons} = environment;
@@ -12,6 +13,8 @@ const {apiPokemons} = environment;
   providedIn: 'root'
 })
 export class PokemonCatalogueService {
+
+  
 
   private _pokemons: Pokemon[] = [];
   private _error: string = "";
@@ -29,18 +32,19 @@ export class PokemonCatalogueService {
     return this._loading;
   }
 
-  constructor(private readonly http:HttpClient) { }
+  constructor(private readonly http:HttpClient, private readonly pokemonMapperService:PokemonMapperService) { }
 
   public findAllPokemon(): void{
     this._loading = true;
-    this.http.get<Pokemon[]>(`${apiPokemons}?offset=0&limit=151`)
+    this.http.get<PokemonLimitedResponse>(`${apiPokemons}?offset=0&limit=151`)
     .pipe(finalize(()=>{
       this._loading = false;
     }))
     .subscribe({
-      next: (pokemons: Pokemon[])=>{
-        this._pokemons = pokemons;
+      next: (pokemons: PokemonLimitedResponse)=>{
+        this._pokemons = this.pokemonMapperService.toPokemonWithoutImg(pokemons);
       },
+      // next: ()=>{},
       error:(error: HttpErrorResponse)=>{
         this._error = error.message;
       }

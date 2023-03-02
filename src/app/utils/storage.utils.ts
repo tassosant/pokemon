@@ -15,6 +15,7 @@ export class StorageUtil{
             
         } catch (error) {
             // we remove it because if we cannot convert it to JSON it means that we can't read it
+            console.log(error);
             sessionStorage.removeItem(key);
             return undefined;
         }
