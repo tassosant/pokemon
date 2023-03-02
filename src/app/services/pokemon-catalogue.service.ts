@@ -1,12 +1,14 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { finalize } from 'rxjs';
+import { filter, finalize, fromEvent, Observable, of, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { StorageKeys } from '../enums/storage-keys.enum';
 import { Pokemon } from '../models/pokemon.module';
 import { PokemonLimitedResponse } from '../models/pokemonLimitedResponse.module';
+import { StorageUtil } from '../utils/storage.utils';
 import { PokemonMapperService } from './pokemon-mapper.service';
 
-//this will change to pokemon, I'll leave it like this for now to handle the rest
+
 const {apiPokemons} = environment;
 
 @Injectable({
@@ -16,7 +18,7 @@ export class PokemonCatalogueService {
 
   
 
-  private _pokemons: Pokemon[] = [];
+  private _pokemons:Pokemon[] =[];
   private _error: string = "";
   private _loading: boolean = false;
 
@@ -34,6 +36,55 @@ export class PokemonCatalogueService {
 
   constructor(private readonly http:HttpClient, private readonly pokemonMapperService:PokemonMapperService) { }
 
+  // public findAllPokemon(): void{
+  //   // this._loading = true;
+  //   // this.http.get<PokemonLimitedResponse>(`${apiPokemons}?offset=0&limit=151`)
+  //   // .pipe(finalize(()=>{
+  //   //   this._loading = false;
+  //   // }))
+  //   // .subscribe({
+  //   //   next: (pokemons: PokemonLimitedResponse)=>{
+  //   //     this._pokemons = this.pokemonMapperService.toPokemonWithoutImg(pokemons);
+        
+  //   //   },
+  //   //   error:(error: HttpErrorResponse)=>{
+  //   //     this._error = error.message;
+  //   //   }
+      
+  //   // })
+  //   // this._pokemons = StorageUtil.storageRead<Pokemon[]>(StorageKeys.Pokemons)!;
+  //   // return this._pokemons = of(StorageUtil.storageRead<Pokemon[]>(StorageKeys.Pokemons)!).pipe(StorageUtil.storageRead<Pokemon>);
+  //   fromEvent<StorageEvent>(window,"storage").pipe(
+  //     filter(event=>event.storageArea===sessionStorage),
+  //     filter(event=>event.key===StorageKeys.Pokemons),
+  //     map(event=>event.newValue)
+  //   ).subscribe({
+  //     next:()=>{
+  //       console.log("mpika");
+        
+  //     this._pokemons=of(StorageUtil.storageRead<Pokemon[]>(StorageKeys.Pokemons)!);
+  //   }
+
+  //   })
+  // }
+
+  // public getAllPokemon(): void{
+  //   this._loading = true;
+  //   this.http.get<PokemonLimitedResponse>(`${apiPokemons}?offset=0&limit=151`)
+  //   .pipe(finalize(()=>{
+  //     this._loading = false;
+  //   }))
+  //   .subscribe({
+  //     next: (pokemons: PokemonLimitedResponse)=>{
+  //       StorageUtil.storageSave<Pokemon[]>(StorageKeys.Pokemons,this.pokemonMapperService.toPokemonWithoutImg(pokemons));
+  //     },
+  //     error:(error: HttpErrorResponse)=>{
+  //       this._error = error.message;
+  //     }
+      
+  //   })
+  // }
+
   public findAllPokemon(): void{
     this._loading = true;
     this.http.get<PokemonLimitedResponse>(`${apiPokemons}?offset=0&limit=151`)
@@ -43,13 +94,12 @@ export class PokemonCatalogueService {
     .subscribe({
       next: (pokemons: PokemonLimitedResponse)=>{
         this._pokemons = this.pokemonMapperService.toPokemonWithoutImg(pokemons);
+        
       },
-      // next: ()=>{},
       error:(error: HttpErrorResponse)=>{
         this._error = error.message;
       }
-      
-    })
+  })
   }
 
   // private toClient(pokemons: PokemonLimitedResponse[]): Pokemon[]{
