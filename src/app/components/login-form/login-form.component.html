@@ -1,4 +1,11 @@
 <!-- ngsubmit will bind to the loginsubmit -->
 <form #loginForm="ngForm" (ngSubmit)="loginSubmit(loginForm)">
-
+    <fieldset>
+        <label for="username" class="block">Username</label>
+        <input type="text"
+            ngModel
+            #username="ngModel"
+        name="username" id="username" class="border border-slate-300 p-2 rounded w-full" placeholder="Brock"/>
+        <button type="submit" class="bg-yellow-500 p-2 rounded">Login</button>
+    </fieldset>
 </form>

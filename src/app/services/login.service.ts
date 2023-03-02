@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, of, switchMap } from 'rxjs';
+import { map, Observable, of, switchMap, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
+
 import { Trainer } from '../models/trainer.module';
+
 
 const {apiTrainers, apiKey} = environment;
 
@@ -24,7 +26,12 @@ export class LoginService {
               return this.createTrainer(username);
           }
           return of(trainer);
-        })
+        }),
+        //In order to save the response to storage we need to use tap
+        //The tap method cannot alter the observable
+        // tap((trainer: Trainer)=>{
+        //     StorageUtil.storageSave<Trainer>(StorageKeys.Trainer, trainer);
+        // })
       )
     }
     //Login
