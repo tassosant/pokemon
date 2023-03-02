@@ -1,5 +1,12 @@
 <aside class="absolute top-4 right-4">
     <button
     (click) = "onCatchClick()"
-    >Catch</button>
+    >
+    <ng-container ><span *ngIf="isCaught; then caught else notCaught"></span></ng-container>
+    <ng-template #caught><span>Caught</span></ng-template>
+    <ng-template #notCaught><span>Not Caughted</span></ng-template>
+    <span>
+        Catch
+    </span>
+</button>
 </aside>
