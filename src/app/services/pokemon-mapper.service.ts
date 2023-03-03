@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { Pokemon } from '../models/pokemon.module';
 import { PokemonLimitedResponse } from '../models/pokemonLimitedResponse.module';
 import { PokemonCatalogueService } from './pokemon-catalogue.service';
+
+const {imageBaseURL} = environment;
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +12,14 @@ import { PokemonCatalogueService } from './pokemon-catalogue.service';
 export class PokemonMapperService {
   
 
-  toPokemonWithoutImg(pokemons: PokemonLimitedResponse): Pokemon[]{
+  toPokemonWithoutImg(pokemons: PokemonLimitedResponse, pokemonArray:Pokemon[]): Pokemon[]{
     
     return pokemons.results.map((pokemon)=>({
         
       pokemonId: this.extractId(pokemon.url),
       name: pokemon.name,
       // image:pokemon.url
-      image:''
+      image:`${imageBaseURL}/${this.extractId(pokemon.url)}.png`
 
     }));
   }

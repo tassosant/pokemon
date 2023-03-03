@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Pokemon } from 'src/app/models/pokemon.module';
-import { PokemonCatalogueService } from 'src/app/services/pokemon-catalogue.service';
+import { first_gen, PokemonCatalogueService } from 'src/app/services/pokemon-catalogue.service';
+import { PokemonImagesService } from 'src/app/services/pokemon-images.service';
 
 @Component({
   selector: 'app-pokemon-catalogue',
@@ -23,12 +24,13 @@ export class PokemonCataloguePage implements OnInit{
     }
 
     constructor(
-      private readonly pokemonCatalogueService: PokemonCatalogueService
+      private readonly pokemonCatalogueService: PokemonCatalogueService,
+      private readonly pokemonImagesService:PokemonImagesService
     ){}
 
     ngOnInit(): void {
         this.pokemonCatalogueService.findAllPokemon();
-        
+        // this.pokemonImagesService.findAllImages (this.pokemonCatalogueService.pokemons, first_gen);
     }
 
 }
