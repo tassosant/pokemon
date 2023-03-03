@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { filter, finalize, fromEvent, Observable, of, map } from 'rxjs';
+import { filter, finalize, fromEvent, Observable, of, map, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { StorageKeys } from '../enums/storage-keys.enum';
 import { Pokemon } from '../models/pokemon.module';
@@ -87,14 +87,23 @@ export class PokemonCatalogueService {
 
   public findAllPokemon(): void{
     this._loading = true;
+    // if(StorageUtil.storageRead<Pokemon[]>(StorageKeys.Pokemons)!==undefined){
+    if(StorageUtil.storageRead<Pokemon[]>(StorageKeys.Pokemons)!==undefined){
+      this._pokemons=StorageUtil.storageRead<Pokemon[]>(StorageKeys.Pokemons)!;
+      this._loading=false;
+      return;
+    }
     this.http.get<PokemonLimitedResponse>(`${apiPokemons}?offset=0&limit=151`)
     .pipe(finalize(()=>{
       this._loading = false;
-    }))
+    }),
+    tap((pokemons:PokemonLimitedResponse)=>{
+      this._pokemons = this.pokemonMapperService.toPokemonWithoutImg(pokemons);})
+    )
     .subscribe({
       next: (pokemons: PokemonLimitedResponse)=>{
-        this._pokemons = this.pokemonMapperService.toPokemonWithoutImg(pokemons);
-        
+        // this._pokemons = this.pokemonMapperService.toPokemonWithoutImg(pokemons);
+        StorageUtil.storageSave<Pokemon[]>(StorageKeys.Pokemons,this._pokemons);
       },
       error:(error: HttpErrorResponse)=>{
         this._error = error.message;

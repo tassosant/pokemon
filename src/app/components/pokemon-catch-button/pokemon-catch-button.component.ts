@@ -31,6 +31,8 @@ export class PokemonCatchButtonComponent implements OnInit{
   }
 
   onCatchClick(): void{
+    
+    
     //Add the pokemon to trainer's pack
     // alert(this.pokemonName+' was caught!!');
     this.pokemonCaughtService.addToPack(this.pokemonId)
