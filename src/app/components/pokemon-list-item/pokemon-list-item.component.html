@@ -1,5 +1,6 @@
 <li *ngIf="pokemon" class="relative">
     <section>
+        <!-- <ng-container *ngIf="isTrainer; then isTrainer else notTrainer" ></ng-container> -->
         <app-pokemon-catch-button [pokemonId]="pokemon.pokemonId"></app-pokemon-catch-button>
         <img [src]="pokemon.image" [alt]="pokemon.name" class="block w-60"/> 
     </section>

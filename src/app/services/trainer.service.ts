@@ -16,6 +16,10 @@ export class TrainerService {
     return this._trainer;
   }
   
+  get pokemons():Pokemon[] | undefined{
+    return this._trainer?.pokemon;
+  }
+
   set trainer(trainer:Trainer | undefined){
     StorageUtil.storageSave<Trainer>(StorageKeys.Trainer, trainer!);
     this._trainer = trainer;
