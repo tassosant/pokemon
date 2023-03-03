@@ -9,7 +9,7 @@ import { StorageUtil } from '../utils/storage.utils';
 import { PokemonMapperService } from './pokemon-mapper.service';
 
 
-const {apiPokemons} = environment;
+const {apiPokemons,imageBaseURL} = environment;
 
 @Injectable({
   providedIn: 'root'
@@ -85,6 +85,67 @@ export class PokemonCatalogueService {
   //   })
   // }
 
+  public fetchImage(pokemon:Pokemon):void{
+    const imageURL = `${imageBaseURL}/${String(pokemon.pokemonId)}.png`;
+    console.log('requested imageURL:', imageURL);
+    this.http.get(String(imageURL),{responseType:"blob"}).pipe(
+      // finalize(()=>{
+       
+      // }),tap(
+      //   (response:Response)=>{
+      //     return response.blob();
+      //   }
+      // ),
+      // tap(response=>{
+      //   const reader = new FileReader();
+      //   reader.readAsDataURL(response);
+       
+      // return {reader};
+      // }),
+      // tap((data: FileReader)=>{
+      //     data.onloadend = ()=>{
+      //     let base64data = data.result;
+      //     pokemon.image = base64data!.toString();
+      // }
+      //  })
+      // tap(
+      //   (response)=>{
+          
+      //     const imageObjectURL=URL.createObjectURL(response.blob());
+      //     return imageObjectURL;
+      //   }
+      // )
+    ).subscribe({
+      next:(response)=>{
+       
+      // console.log("RESPONSE!!!!",response);
+      //const imageBlob = response.blob();
+      
+      
+      // reader.onloadend = ()=>{
+      //   let base64data = reader.result;
+      //   pokemon.image = base64data!.toString();
+        
+        
+      // };
+    },
+    error:(error: HttpErrorResponse)=>{
+      this._error = error.message;
+      console.log(error);
+      
+    }
+    })
+  }
+
+  private findAllImages(pokemons:Pokemon[]): Pokemon[] {
+    // let pokemons = StorageUtil.storageRead<Pokemon[]>(StorageKeys.Pokemons)!;
+    pokemons.map((pokemon:Pokemon,pokemonIndex:number,pokemons:Pokemon[])=>{
+      // this.fetchImage(pokemon,pokemon.pokemonId);
+      this.fetchImage(pokemon);
+    })
+    return pokemons;
+  }
+
   public findAllPokemon(): void{
     this._loading = true;
     // if(StorageUtil.storageRead<Pokemon[]>(StorageKeys.Pokemons)!==undefined){
@@ -98,12 +159,34 @@ export class PokemonCatalogueService {
       this._loading = false;
     }),
     tap((pokemons:PokemonLimitedResponse)=>{
-      this._pokemons = this.pokemonMapperService.toPokemonWithoutImg(pokemons);})
+      this._pokemons = this.pokemonMapperService.toPokemonWithoutImg(pokemons);
+      console.log("Pokemon before fetching", this._pokemons);
+      
+      // return this._pokemons;
+    })
+    ,tap(()=>{
+      // this._pokemons = this.findAllImages(this._pokemons);
+      
+    })
+    ,tap(()=>{
+      // this._pokemons = this.pokemonMapperService.toPokemonWithImg(this._pokemons, this.findAllImages(this._pokemons));
+      console.log("pokemon after mapping with img",this._pokemons);
+      
+      // StorageUtil.storageSave<Pokemon[]>(StorageKeys.Pokemons,this._pokemons);
+      
+    })
+    ,tap(()=>{
+      // this._pokemons = this.pokemonMapperService.toPokemonWithImg(this._pokemons, this.findAllImages(this._pokemons));
+      StorageUtil.storageSave<Pokemon[]>(StorageKeys.Pokemons,this._pokemons);
+      
+    })
     )
     .subscribe({
       next: (pokemons: PokemonLimitedResponse)=>{
         // this._pokemons = this.pokemonMapperService.toPokemonWithoutImg(pokemons);
-        StorageUtil.storageSave<Pokemon[]>(StorageKeys.Pokemons,this._pokemons);
+        console.log("Pokemons, after fetching image", this._pokemons);
+        
+        // StorageUtil.storageSave<Pokemon[]>(StorageKeys.Pokemons,this._pokemons);
       },
       error:(error: HttpErrorResponse)=>{
         this._error = error.message;

@@ -39,12 +39,7 @@ export class PokemonCaughtService {
     if(!pokemon){
       throw new Error("No pokemon with id: "+pokemonId+" found!!");
     }
-    if(this.trainerService.inPack(pokemonId)){
-      this.trainerService.removeFromCaught(pokemonId);
-    }else{
-      //found the impostor
-      // this.trainerService.addToCaught(pokemon);
-    }
+    
 
     const headers= new HttpHeaders({
       'content-type': 'application/json',
@@ -53,10 +48,16 @@ export class PokemonCaughtService {
 
     this._loading = true;
     
+    if(this.trainerService.inPack(pokemonId)){
+      this.trainerService.removeFromCaught(pokemonId);
+    }else{
+      //found the impostor
+      this.trainerService.addToCaught(pokemon);
+    }
     
     // const hasPokemon: Pokemon | undefined = user
     return this.http.patch<Trainer>(`${apiTrainers}/${trainer.id}`,{
-      pokemon:[...trainer.pokemon, pokemon]
+      pokemon:[...trainer.pokemon]
     },{
       headers
     })
