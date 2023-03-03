@@ -47,6 +47,7 @@ export class LoginService {
     private createTrainer(username: string): Observable<Trainer>{
       //trainer
       const trainer = {
+        
         username,
         pokemon:[]
       };

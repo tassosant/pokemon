@@ -17,6 +17,7 @@ import { PokemonListComponent } from './components/pokemon-list/pokemon-list.com
 import { PokemonListItemComponent } from './components/pokemon-list-item/pokemon-list-item.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PokemonCatchButtonComponent } from './components/pokemon-catch-button/pokemon-catch-button.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [ //Components
@@ -37,7 +38,8 @@ import { PokemonCatchButtonComponent } from './components/pokemon-catch-button/p
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

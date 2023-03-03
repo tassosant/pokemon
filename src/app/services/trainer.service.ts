@@ -26,11 +26,21 @@ export class TrainerService {
     
   }
 
-  public inPack(pokemonName: string): boolean{
+  public inPack(pokemonId: number): boolean{
     if(this._trainer){
-
-      return Boolean(this.trainer?.pokemon.find((pokemon:Pokemon)=> {pokemon.name===pokemonName}));
+      console.log("uparxei");
+      return Boolean(this.trainer?.pokemon.find((pokemon:Pokemon)=> {pokemon.pokemonId===pokemonId}));
     }
     return false;
+  }
+  public addToCaught(pokemon:Pokemon):void{
+    if(this._trainer){
+      this._trainer.pokemon.push(pokemon);
+    }
+  }
+  public removeFromCaught(pokemonId:number):void{
+    if(this._trainer){
+      this._trainer.pokemon= this._trainer.pokemon.filter((pokemon:Pokemon)=>pokemon.pokemonId!==pokemonId);
+    }
   }
 }

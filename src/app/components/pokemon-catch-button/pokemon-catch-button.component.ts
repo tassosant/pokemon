@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
+import { Trainer } from 'src/app/models/trainer.module';
 import { PokemonCaughtService } from 'src/app/services/pokemon-caught.service';
 import { TrainerService } from 'src/app/services/trainer.service';
 
@@ -11,7 +12,7 @@ import { TrainerService } from 'src/app/services/trainer.service';
 export class PokemonCatchButtonComponent implements OnInit{
 
   public isCaught: boolean = false;
-  @Input() pokemonId!: number;
+  @Input() pokemonId: number = 0;
 
   get loading(): boolean{
     return this.pokemonCaughtService.loading;
@@ -20,21 +21,23 @@ export class PokemonCatchButtonComponent implements OnInit{
   // get isCaught(): boolean{
   //   return this.trainerService.inPack(this.pokemonName);
   // }
-  ngOnInit(): void {
-      this.isCaught = this.trainerService.inPack(this.pokemonId);
-  }
+  
   constructor(
     private trainerService: TrainerService,
     private readonly pokemonCaughtService: PokemonCaughtService){}
+    
+  ngOnInit(): void {
+        this.isCaught = this.trainerService.inPack(this.pokemonId);
+  }
 
   onCatchClick(): void{
     //Add the pokemon to trainer's pack
     // alert(this.pokemonName+' was caught!!');
     this.pokemonCaughtService.addToPack(this.pokemonId)
     .subscribe({
-      next:(response:any)=>{
-        console.log("NEXT", response);
-        
+      next:(trainer:Trainer)=>{
+        // console.log("NEXT", response);
+        this.isCaught = this.trainerService.inPack(this.pokemonId);
       },
       error:(error:HttpErrorResponse)=>{
         console.log("ERROR", error.message);

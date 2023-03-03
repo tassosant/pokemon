@@ -30,17 +30,20 @@ export class PokemonCaughtService {
   //patch request to our server with the userid and the pokemon
 
 
-  public addToPack(pokemonName: string): Observable<Trainer>{
+  public addToPack(pokemonId: number): Observable<Trainer>{
     if(!this.trainerService.trainer){
       throw new Error("There is no trainer")
     }
     const trainer: Trainer = this.trainerService.trainer;
-    const pokemon:Pokemon | undefined = this.pokemonCatalogueService.findPokemonByName(pokemonName);
+    const pokemon:Pokemon | undefined = this.pokemonCatalogueService.findPokemonById(pokemonId);
     if(!pokemon){
-      throw new Error("No pokemon with name: "+pokemonName+" found!!");
+      throw new Error("No pokemon with id: "+pokemonId+" found!!");
     }
-    if(this.trainerService.inPack(pokemonName)){
-      throw new Error("inPack: Pokemon is already owned!");
+    if(this.trainerService.inPack(pokemonId)){
+      this.trainerService.removeFromCaught(pokemonId);
+    }else{
+      //found the impostor
+      // this.trainerService.addToCaught(pokemon);
     }
 
     const headers= new HttpHeaders({
@@ -49,7 +52,8 @@ export class PokemonCaughtService {
     })
 
     this._loading = true;
-
+    
+    
     // const hasPokemon: Pokemon | undefined = user
     return this.http.patch<Trainer>(`${apiTrainers}/${trainer.id}`,{
       pokemon:[...trainer.pokemon, pokemon]

@@ -121,8 +121,8 @@ export class PokemonCatalogueService {
   //   return id;
   // }
 
-  public findPokemonByName(name:string): Pokemon |undefined{
-    return this._pokemons.find((pokemon: Pokemon)=>pokemon.name===name);
+  public findPokemonById(pokemonId:number): Pokemon |undefined{
+    return this._pokemons.find((pokemon: Pokemon)=>pokemon.pokemonId===pokemonId);
   }
 
   
