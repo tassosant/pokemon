@@ -26,10 +26,22 @@ export class TrainerService {
     
   }
 
-  public inPack(pokemonId: number): boolean{
+  public inPack(pokeId: number): boolean{
     if(this._trainer){
-      console.log("uparxei");
-      return Boolean(this.trainer?.pokemon.find((pokemon:Pokemon)=> {pokemon.pokemonId===pokemonId}));
+      
+      
+      // console.log(Boolean(this._trainer?.pokemon.find((pokemon:Pokemon)=> {pokemon.pokemonId===pokemonId})));
+      // console.log("trainerAPI pokemonId", typeof this._trainer.pokemon);
+      // if(this._trainer?.pokemon[pokemonId]!==undefined)
+      //   return Boolean(this._trainer?.pokemon[pokemonId].pokemonId===pokemonId);
+      // console.log(this._trainer?.pokemon[pokemonId].pokemonId===pokemonId);
+      // console.log(this._trainer.pokemon);
+      // return Boolean(this._trainer.pokemon.find((pokemon:Pokemon)=> {pokemon["pokemonId"] === pokeId}) );
+      // good old loop
+      for(const pokemon of this._trainer.pokemon){
+        if(pokemon.pokemonId===pokeId)
+          return true;
+      }
     }
     return false;
   }
