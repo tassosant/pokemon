@@ -1,27 +1,56 @@
-# NgPokemonFirstGen
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.0.
+# AngularJS: Pokemon
 
-## Development server
+Team sumbission for Front End Assignment 3: Create Pokemon Trainer using Angular.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+#### Summary
 
-## Code scaffolding
+The aim of the assignment was to host our own api and then make a web app using Angular that utilizes said api.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+## What we used
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+We used Figma to create a basic draft of the component tree. We used Railway for hosting the API. On the coding side, we used VS Code. For styling we used Tailwind as per the videos provided.
 
-## Running unit tests
+## Thoughts / What we learned
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Working with Angular was fair bit more troublesome than REACT.  Some more detailed thoughts from each of us bellow:
 
-## Running end-to-end tests
+- **Tasos Antoniou**:   
+    What I've learned:
+1. How http.get works. There is a different approach working with asynchronous functions and synchronous functions. The get method is async and has a unique way of handling the function and manipulate the data.
+2. To debug the response object when you get error and response status is 200!!
+3. How typescript declarations works!
+4. How to ignore null values etc.
+5. How to use services and what NgOnInit does
+6. Better understanding of session storage.
+7. How to use environment files
+8. Navigation with Angular
+9. When instantiation happens(without "new")
+10. The usage of models and when is the right time to create them with the proper names.
+11. How to connect componentName.component.html with componentName.component.ts
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- **Bill Tsolis**:   
+    Tasos once again did most of the legwork regarding functionality. On my part, Tailwind ended up being quite easy and pleasant to work with despite being initially confusing. Definitely faster and easier than pure css.  
+    
 
-## Further help
+## How to Run
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+#### Requirements
+
+- NPM
+
+#### Instructions
+
+- Begin with downloading/cloning the repo. 
+- Dowload the provided "environments" folder via Moodle and place it at `./src/environments`
+- Use `npm start` on your terminal of choice(while still in root fodler)
+- Open `http://localhost:4200` in your browser of choice
+
+If you get any errors try running `npm install` in the root folder of the app before running `npm start` again. 
+
+
+## Contributors
+
+- **Tasos Antoniou** [@tassosant](https://github.com/tassosant)
+- **Bill Tsolis** [@bt001](https://github.com/bt001)

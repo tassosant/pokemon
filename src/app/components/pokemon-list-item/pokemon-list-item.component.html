@@ -1,10 +1,15 @@
-<li *ngIf="pokemon" class="relative">
-    <section>
-        <!-- <ng-container *ngIf="isTrainer; then isTrainer else notTrainer" ></ng-container> -->
-        <app-pokemon-catch-button [pokemonId]="pokemon.pokemonId"></app-pokemon-catch-button>
-        <img [src]="pokemon.image" [alt]="pokemon.name" class="block w-60"/> 
-    </section>
-    <section>
-        <span class="text-2xl">Pokedex number: {{pokemon.pokemonId}} Pokemon name: {{pokemon.name}} </span>
-    </section>
+<div class="flex justify-center pb-1">
+<li *ngIf="pokemon" class="relative border rounded-lg w-3/4 bg-slate-100 drop-shadow-lg">
+    <div class="grid grid-cols-4 grid-flow-row">
+        
+            <!-- <ng-container *ngIf="isTrainer; then isTrainer else notTrainer" ></ng-container> -->
+            <div class="col-span-1 row-span-2 flex justify-center "><img [src]="pokemon.image" [alt]="pokemon.name"/></div>
+            <div class="col-span-2"><span class="text-2xl">Pokedex Number: {{pokemon.pokemonId}}</span></div>
+            <div class="col-span-2">  <span class="text-2xl capitalize">{{pokemon.name}}</span></div>         
+            <div class="col-span-1"><app-pokemon-catch-button [pokemonId]="pokemon.pokemonId"></app-pokemon-catch-button></div>
+                
+            
+        
+    </div>
 </li>
+</div>

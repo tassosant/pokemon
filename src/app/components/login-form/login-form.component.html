@@ -1,11 +1,17 @@
-<!-- ngsubmit will bind to the loginsubmit -->
-<form #loginForm="ngForm" (ngSubmit)="loginSubmit(loginForm)">
-    <fieldset>
-        <label for="username" class="block">Username</label>
-        <input type="text"
-            ngModel
-            #username="ngModel"
-        name="username" id="username" class="border border-slate-300 p-2 rounded w-full" placeholder="Brock"/>
-        <button type="submit" class="bg-yellow-500 p-2 rounded">Login</button>
-    </fieldset>
-</form>
+<div class=" grid grid-cols-4">
+    <div></div>
+    <div class=" flex justify-center col-span-2 border rounded-lg pt-1 pb-2 mt-2 bg-slate-100 drop-shadow-lg">
+        <!-- ngsubmit will bind to the loginsubmit -->
+        <form #loginForm="ngForm" (ngSubmit)="loginSubmit(loginForm)">
+            <fieldset>
+                <label for="username" class="flex justify-center">Username</label>
+                <input type="text"
+                    ngModel
+                    #username="ngModel"
+                name="username" id="username" class="border mb-1 border-slate-300 p-2 rounded w-full" placeholder="Brock"/>
+                <button type="submit" class="flex mt justify-center w-full bg-yellow-500 p-2 rounded">Login</button>
+            </fieldset>
+        </form>
+    </div>
+    <div></div>
+</div>
